@@ -1,0 +1,93 @@
+/* Custom styles */
+html, body {
+    background-color: black;
+    color: white;
+}
+
+h1 {
+    display: block;
+    font-size: 3rem;
+    font-family: 'Audiowide', sans-serif;
+    text-align: center;
+}
+
+h2 {
+    display: block;
+    font-size: 1rem;
+    text-align: center;
+    paddng-bottom: 1rem;
+    /* Letter stretching, from https://stackoverflow.com/questions/6351013/css-can-i-stretch-text */
+    -webkit-transform:scale(2,1); /* Safari and Chrome */
+    -moz-transform:scale(2,1); /* Firefox */
+    -ms-transform:scale(2,1); /* IE 9 */
+    -o-transform:scale(2,1); /* Opera */
+    transform:scale(2,1); /* W3C */
+}
+
+h3 {
+    padding-bottom: 1rem;
+}
+
+header {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+header a, nav a {
+    text-decoration: none;
+    color: white;
+}
+
+header a:hover, nav a:hover {
+    color: white;
+}
+
+#banner {
+    background-image: url("../img/qimono-pixabay-640x320-kraken.jpg");
+    background-size: 100% 100%;
+}
+
+nav ul {
+    list-style-type: none;
+    line-height: 3;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#footerDiv {
+    text-align: center;
+}
+
+/* Index page */
+.topOption {
+    padding-bottom: 1rem;
+}
+
+.photoItem {
+    display: inline-block;
+}
+
+/* Small devices (landscape phones, 576px and up) <-- Material Design Bootstrap presets*/
+@media (min-width: 576px) and (max-width: 767px) {
+    h1 {
+        font-size: 5rem;
+    }
+
+    h2 {
+        font-size: 1rem;
+        /* Letter stretching, from https://stackoverflow.com/questions/6351013/css-can-i-stretch-text */
+        -webkit-transform:scale(3,1); /* Safari and Chrome */
+        -moz-transform:scale(3,1); /* Firefox */
+        -ms-transform:scale(3,1); /* IE 9 */
+        -o-transform:scale(3,1); /* Opera */
+        transform:scale(3,1); /* W3C */
+    }
+
+    #banner {
+        background-image: url("../img/qimono-pixabay-1920x960-kraken.jpg");
+    }
+}
+
