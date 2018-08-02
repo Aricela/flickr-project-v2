@@ -67,7 +67,11 @@ img {
 }
 
 .photoUnit {
-    display: inline-block;
+    display: none;  /* Default */
+}
+
+.photoUnit.show {
+    display: inline-block;  /* Consider flex */
 }
 
 /* Small devices (landscape phones, 576px and up) <-- Material Design Bootstrap presets*/

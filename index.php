@@ -38,7 +38,7 @@
         <div class="row">
             <section class="col-sm-12 col-md-9 col-lg-10">
                 <main>
-                    <h3>Photos curated by NASA.</h3>
+                    <h3 id="photoSectionHeader">Photos curated by NASA.</h3>
                     <div id="topOptions">
                         <div class="topOption">
                             Sort photos by
@@ -60,7 +60,7 @@
             <section class="col-sm-12 col-md-3 col-lg-2">
                 <h3>Tags to filter by</h3>
                 <div id="tagsDiv">
-                    <div><button type="button" class="btn btn-deep-orange btn-sm tagButton" value="space">Show all photos</button></div>
+                    <div><button type="button" class="btn btn-deep-orange btn-sm tagButton" value="all">Show all photos</button></div>
                     <p>Tags: </p>
                 </div>
             </section>

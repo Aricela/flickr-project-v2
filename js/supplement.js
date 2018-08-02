@@ -43,6 +43,7 @@ $(document).ready(function() {
             let imgURL = 'https://farm' + photos[i].farm + '.staticflickr.com/' + photos[i].server + '/' + photos[i].id + '_' + photos[i].secret + '.jpg';
             $('#photoDiv').append('<span class="photoUnit" id="' + photoId + '"><img src = "' + imgURL + '" alt = "' + title + '" title = "' + title + '"><span>' + title +'</span></span>');
         }
+        addTagsToPhotos();
     }
 
     // Get metadata for a photo
@@ -58,10 +59,15 @@ $(document).ready(function() {
 
             // Get tags
             var photoTags = [];
-            //console.log(data.photo.tags);
             var tagObj = data.photo.tags.tag;
+
+            // change each tag to consistent (lower) case; otherwise lowercase a comes after uppercase U
             tagObj.forEach(function(item) {
-                photoTags.push(item.raw);
+                var tagItem = item.raw;
+                tagItem = tagItem.toLowerCase();
+
+                // push tag into photoTags array
+                photoTags.push(tagItem);
             });
 
             // Put tags into into photoObj
@@ -74,9 +80,9 @@ $(document).ready(function() {
                 }
             });
         });
-        setTimeout(function(){console.log(tagsList[4])}, 10000);
     }
 
+    // Add tags as photoUnit classes
     function addTagsToPhotos() {
         console.log(photos);
         var photoUnits = document.getElementsByClassName('photoUnit');
@@ -84,23 +90,20 @@ $(document).ready(function() {
         for (let i = 0; i < photoUnits.length; i++) {
             //console.log(photoUnits[i].id);
             for (let j = 0; j < photos.length; j++) {
-                if (photos[j].id == photoUnits[i].id) {
+                if (photos[j].id === photoUnits[i].id) {
+                    console.log(photos[j].id + " " + photoUnits[i].id);
                     if (photos[j].tags.length > 0) {
                         photos[j].tags.forEach(function(tag){
-                            // format tag to match the values of those in the tagsDiv
-                            var tag = tag.toLowerCase();
                             var className = makeCSSClass(tag);
                             $(photoUnits[i]).addClass(className);
                         });
                     }
                 }
             }
-
-            //console.log(photos.photoUnits[i].id);
-            //console.log(photoUnits[i]);
         }
     }
 
+    // Format tags so they can be used as CSS classes
     function makeCSSClass(tag) {
         var cssClassRegEx = new RegExp('^[a-zA-Z][a-zA-Z0-9-]*$', 'g'); // RegEx for the whole tag  name
         if (cssClassRegEx.test(tag) === false) {  // if anything in the tag doesn't match the css regex
@@ -111,17 +114,12 @@ $(document).ready(function() {
         if (cssFirstCharRegEx.test(tag.charAt(0)) === false) {  //If first character not a letter...
             tag = tag.replace(tag.charAt(0), "a");  // make first letter an 'a' to ensure it matches css convention
         }
-        console.log(tag);
         return tag;
     }
 
     setTimeout(function(){addTagsToPhotos()}, 10000);
 
-    var umm = setTimeout(function(){console.log(tagsList[4]);
-        for (let i = 0; i < tagsList.length; i++) {
-            tagsList[i] = tagsList[i].toLowerCase();  // change each tag to consistent case; otherwise lowercase a comes after uppercase U
-                                        // changed to lowercase because CSS naming convention, but the button style displays all uppercase.
-        }
+    var umm = setTimeout(function(){
         tagsList.sort();  // sort alphabetically
         for (let i = 0; i < tagsList.length; i++) {
             // Remove spaces and special characters from tag values, as those do not translate well to CSS classes
@@ -147,6 +145,51 @@ $(document).ready(function() {
     }
     console.log(tagsList);
 
+    // FILTERING
+    // Define filter functions
+    function filterSelection(filter) {
+        var allPhotosList = document.getElementsByClassName("photoUnit");  // photoUnit class is on all photo units and thus acts as an "all" filter
+        if (filter == "all") {
+            filter = "";  // Makes indexOf return 0 for everything
+        };
+        for (let i = 0; i < allPhotosList.length; i++) {
+            $(allPhotosList[i]).removeClass("show");
+            if ((allPhotosList[i].className.indexOf(filter)) > -1) {
+                // If the string of class names contains the specified filter, add the "show" class
+                checkThenAddClass(allPhotosList[i], "show");
+                console.log(allPhotosList[i].className);
+                document.querySelector('#photoSectionHeader').scrollIntoView({  // smooth scroll to top
+                    // from https://css-tricks.com/snippets/jquery/smooth-scrolling/
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }
+
+    function checkThenAddClass(element, newClass) {
+        var currentClassList = element.className.split("");
+        if ((jQuery.inArray(newClass, currentClassList)) == -1) {
+            // if newClass NOT in currentClassList array, add newClass
+            element.className = element.className + " " + newClass;
+        }
+    }
+
+    // Initial load of photo units
+    setTimeout(function(){filterSelection("all")});
+    setTimeout(function(){addFilterToButton()}, 10000);
+
+// Attach filter actions to tag buttons (use callback in function () to avoid executing filter immediately)
+    function addFilterToButton() {
+        var tagButtonsList = document.querySelectorAll('#tagsDiv button');
+        for (let i = 0; i < tagButtonsList.length; i++) {
+            console.log(tagButtonsList[i].value);
+            console.log(tagButtonsList.length);
+            tagButtonsList[i].addEventListener('click', function(){filterSelection(tagButtonsList[i].value)});
+        }
+    }
+
+
+    // SORTING
     // When user clicks on one of choices in the miscellaneous dropdown, sort by the choice
     $('#miscSort').change(function() {
         var selection = this.value;  // get selected value
