@@ -7,9 +7,12 @@ $(document).ready(function() {
 
     // Get photos
     $.get(flickrStr, function(data){
-       fetchPhotos(data);
-       console.log(photos.length);
-       displayPhotos();
+        fetchPhotos(data);
+        console.log(photos.length);
+        displayPhotos();
+        umm();
+        setTimeout(addTagsToPhotos, 10000);
+
     });
 
     console.log(photos.length);
@@ -29,14 +32,18 @@ $(document).ready(function() {
             getMetadata(photoObj);
             photos.push(photoObj);
         }
+        console.log(tagsList[0]);
     }
 
     // How to display the photos
     function displayPhotos() {
         for (let i = 0; i < photos.length; i++) {
+            let photoId = photos[i].id;
             let title = photos[i].title;
+            let photoTags = photos[i].tags;
+            console.log(photoTags);
             let imgURL = 'https://farm' + photos[i].farm + '.staticflickr.com/' + photos[i].server + '/' + photos[i].id + '_' + photos[i].secret + '.jpg';
-            $('#photoDiv').append('<span class="photoItem"><img src = "' + imgURL + '" alt = "' + title + '" title = "' + title + '"><span>' + title +'</span></span>');
+            $('#photoDiv').append('<span class="photoUnit" id="' + photoId + '"><img src = "' + imgURL + '" alt = "' + title + '" title = "' + title + '"><span>' + title +'</span></span>');
         }
     }
 
@@ -69,12 +76,50 @@ $(document).ready(function() {
                 }
             });
         });
+        setTimeout(function(){console.log(tagsList[4])}, 10000);
     }
 
+    function addTagsToPhotos() {
+        var photoUnits = document.getElementsByClassName('photoUnit');
+        console.log(photoUnits.length);
+        for (let i = 0; i < photoUnits.length; i++) {
+            console.log(photoUnits[i].id);
+            for (let j = 0; j < photos.length; j++) {
+                if (photos.id == photoUnits[i].id) {
+                    $(photoUnits[i]).addClass("bluh");
+                    console.log("bbb");
+                }
+            }
+
+            //console.log(photos.photoUnits[i].id);
+            //console.log(photoUnits[i]);
+        }
+    }
+    setTimeout(function(){addTagsToPhotos()}, 10000);
+    console.log(typeof(tagsList[0]));
+    console.log(tagsList[0]);
+    var umm = setTimeout(function(){console.log(tagsList[4]);
+        console.log(typeof(tagsList[4]));
+        console.log(tagsList[4]);
+        tagsList.sort();
+        for (var i = 0; i < tagsList.length; i++) {
+            tagsDiv.innerHTML = tagsDiv.innerHTML + '<button type="button" class="btn btn-mdb-color btn-sm tagButton" value="' + tagsList[i]
+            + '">' + tagsList[i] + '</button>';
+        }}
+    , 10000);
+    var tagsArray = Object.keys(tagsList).map(i=> tagsList[i]);
+    console.log(tagsArray);
+    console.log(tagsArray[2]);
+    console.log(photos.length);
+    console.log($.isArray(photos));
+    console.log(tagsList[1]);
+    console.log($.isArray(tagsList));
     tagsList.sort();  // Sort tagsList alphabetically
 
     // Put tagsList items in the tagsDiv
     var tagsDiv = document.getElementById('tagsDiv');
+
+    console.log(tagsList[1]);
     for (var i = 0; i < tagsList.length; i++) {
         tagsDiv.innerHTML = tagsDiv.innerHTML + tagsList[i];
     }

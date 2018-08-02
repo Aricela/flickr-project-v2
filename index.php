@@ -60,8 +60,8 @@
             <section class="col-sm-12 col-md-3 col-lg-2">
                 <h3>Tags to filter by</h3>
                 <div id="tagsDiv">
-                    <button type="button" class="btn btn-mdb-color btn-sm tagButton" value="space">space</button>
-                    <button type="button" class="btn btn-mdb-color btn-sm tagButton" value="nasa">nasa</button>
+                    <div><button type="button" class="btn btn-deep-orange btn-sm tagButton" value="space">Show all photos</button></div>
+                    <p>Tags: </p>
                 </div>
             </section>
         </div> <!-- /Row div -->
