@@ -8,13 +8,11 @@ $(document).ready(function() {
     // Get photos
     $.get(flickrStr, function(data){
         fetchPhotos(data);
-        console.log(photos.length);
+        //console.log(photos.length);
         displayPhotos();
-        umm();
-        setTimeout(addTagsToPhotos, 10000);
     });
 
-    console.log(photos.length);
+    //console.log(photos.length);
 
     // Take items from returned Flickr array and put them into local photos array
     function fetchPhotos(data) {
@@ -39,11 +37,13 @@ $(document).ready(function() {
             let photoId = photos[i].id;
             let title = photos[i].title;
             let photoTags = photos[i].tags;
-            console.log(photoTags);
+            //console.log(photoTags);
             let imgURL = 'https://farm' + photos[i].farm + '.staticflickr.com/' + photos[i].server + '/' + photos[i].id + '_' + photos[i].secret + '.jpg';
             $('#photoDiv').append('<span class="photoUnit show" id="' + photoId + '"><img class="galleryImg" src = "' + imgURL + '" alt = "' + title + '" title = "' + title + '"><span>' + title +'</span></span>');
         }
-        addTagsToPhotos();
+        //console.log("hello");
+
+        setTimeout(function(){addTagsToPhotos();}, 2000);
     }
 
     // Get metadata for a photo
@@ -84,9 +84,9 @@ $(document).ready(function() {
 
     // Add tags as photoUnit classes
     function addTagsToPhotos() {
-        console.log(photos);
+        //console.log("hello 2");
         var photoUnits = document.getElementsByClassName('photoUnit');
-        console.log(photoUnits.length);
+        //console.log(photoUnits.length);
         for (let i = 0; i < photoUnits.length; i++) {
             //console.log(photoUnits[i].id);
             for (let j = 0; j < photos.length; j++) {
@@ -101,6 +101,7 @@ $(document).ready(function() {
                 }
             }
         }
+        //console.log("hello 3");
     }
 
     // Format tags so they can be used as CSS classes
@@ -117,9 +118,7 @@ $(document).ready(function() {
         return tag;
     }
 
-    setTimeout(function(){addTagsToPhotos()}, 10000);
-
-    var umm = setTimeout(function(){
+    setTimeout(function(){
         tagsList.sort();  // sort alphabetically
         for (let i = 0; i < tagsList.length; i++) {
             // Remove spaces and special characters from tag values, as those do not translate well to CSS classes
@@ -129,21 +128,15 @@ $(document).ready(function() {
             tagsDiv.innerHTML = tagsDiv.innerHTML + '<button type="button" class="btn btn-mdb-color btn-sm tagButton" value="' + tagValue
                 + '">' + tagsList[i] + '</button>';
         }}
-    , 10000);
-
-    console.log(photos.length);
-    console.log($.isArray(photos));
-    console.log(tagsList[1]);
-    console.log($.isArray(tagsList));
+    , 2000);
 
     // Put tagsList items in the tagsDiv
     var tagsDiv = document.getElementById('tagsDiv');
 
-    console.log(tagsList[1]);
     for (var i = 0; i < tagsList.length; i++) {
         tagsDiv.innerHTML = tagsDiv.innerHTML + tagsList[i];
     }
-    console.log(tagsList);
+    //console.log(tagsList);
 
     // FILTERING
     // Define filter functions
@@ -176,7 +169,7 @@ $(document).ready(function() {
 
     // Initial load of photo units
     setTimeout(function(){filterSelection("all")});
-    setTimeout(function(){addFilterToButton()}, 10000);
+    setTimeout(function(){addFilterToButton()}, 2000);
 
 // Attach filter actions to tag buttons (use callback in function () to avoid executing filter immediately)
     function addFilterToButton() {
@@ -199,7 +192,7 @@ $(document).ready(function() {
     // When user clicks on one of choices in the miscellaneous dropdown, sort by the choice
     $('#miscSort').change(function() {
         var selection = this.value;  // get selected value
-        console.log(photos.length);
+        //console.log(photos.length);
         switch (selection) {
             default:
                 // Sort by date (most recent first)
@@ -226,7 +219,7 @@ $(document).ready(function() {
                 break;
             case "title":
                 // Sort by title string a-z
-                console.log(photos);
+                //console.log(photos);
                 photos.sort(function(a, b) {
                     var x = a.title.toLowerCase();
                     var y = b.title.toLowerCase();
@@ -247,9 +240,9 @@ $(document).ready(function() {
     $('.tagButton').click(function(){
         for (var i=0; i<photos.length; i++) {
             if ($.inArray(this.value, photos[i].tags) == -1) {
-                console.log(this.value);
+                //console.log(this.value);
             }
          }
     });
-    console.log(photos);
+    //console.log(photos);
 });
