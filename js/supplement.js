@@ -83,11 +83,13 @@ $(document).ready(function() {
         var photoUnits = document.getElementsByClassName('photoUnit');
         console.log(photoUnits.length);
         for (let i = 0; i < photoUnits.length; i++) {
-            console.log(photoUnits[i].id);
+            //console.log(photoUnits[i].id);
             for (let j = 0; j < photos.length; j++) {
                 if (photos.id == photoUnits[i].id) {
                     $(photoUnits[i]).addClass("bluh");
                     console.log("bbb");
+                } else {
+                    //console.log("ccc");
                 }
             }
 
@@ -101,11 +103,17 @@ $(document).ready(function() {
     var umm = setTimeout(function(){console.log(tagsList[4]);
         console.log(typeof(tagsList[4]));
         console.log(tagsList[4]);
-        tagsList.sort();
-        for (var i = 0; i < tagsList.length; i++) {
+        console.log(tagsList);
+        for (let i = 0; i < tagsList.length; i++) {
+            tagsList[i] = tagsList[i].toUpperCase();  // change each tag to consistent case; otherwise lowercase a comes after uppercase U
+        }
+        tagsList.sort();  // sort alphabetically
+        for (let i = 0; i < tagsList.length; i++) {
+            // add html for each tag in tagsList.
             tagsDiv.innerHTML = tagsDiv.innerHTML + '<button type="button" class="btn btn-mdb-color btn-sm tagButton" value="' + tagsList[i]
-            + '">' + tagsList[i] + '</button>';
-        }}
+                + '">' + tagsList[i] + '</button>';
+        }
+        console.log(tagsList);}
     , 10000);
     var tagsArray = Object.keys(tagsList).map(i=> tagsList[i]);
     console.log(tagsArray);
