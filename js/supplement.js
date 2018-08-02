@@ -12,7 +12,6 @@ $(document).ready(function() {
         displayPhotos();
         umm();
         setTimeout(addTagsToPhotos, 10000);
-
     });
 
     console.log(photos.length);
@@ -32,7 +31,6 @@ $(document).ready(function() {
             getMetadata(photoObj);
             photos.push(photoObj);
         }
-        console.log(tagsList[0]);
     }
 
     // How to display the photos
@@ -80,16 +78,21 @@ $(document).ready(function() {
     }
 
     function addTagsToPhotos() {
+        console.log(photos);
         var photoUnits = document.getElementsByClassName('photoUnit');
         console.log(photoUnits.length);
         for (let i = 0; i < photoUnits.length; i++) {
             //console.log(photoUnits[i].id);
             for (let j = 0; j < photos.length; j++) {
-                if (photos.id == photoUnits[i].id) {
-                    $(photoUnits[i]).addClass("bluh");
-                    console.log("bbb");
-                } else {
-                    //console.log("ccc");
+                if (photos[j].id == photoUnits[i].id) {
+                    if (photos[j].tags.length > 0) {
+                        photos[j].tags.forEach(function(tag){
+                            // format tag to match the values of those in the tagsDiv
+                            var tag = tag.toLowerCase();
+                            var className = makeCSSClass(tag);
+                            $(photoUnits[i]).addClass(className);
+                        });
+                    }
                 }
             }
 
@@ -97,32 +100,43 @@ $(document).ready(function() {
             //console.log(photoUnits[i]);
         }
     }
+
+    function makeCSSClass(tag) {
+        var cssClassRegEx = new RegExp('^[a-zA-Z][a-zA-Z0-9-]*$', 'g'); // RegEx for the whole tag  name
+        if (cssClassRegEx.test(tag) === false) {  // if anything in the tag doesn't match the css regex
+            tag = tag.replace(/[^a-zA-Z0-9-]/g, "");  // Replace all special characters (anything not number, letter, or hyphen)
+        }
+
+        var cssFirstCharRegEx = new RegExp('[a-zA-Z]'); // First character must be a letter
+        if (cssFirstCharRegEx.test(tag.charAt(0)) === false) {  //If first character not a letter...
+            tag = tag.replace(tag.charAt(0), "a");  // make first letter an 'a' to ensure it matches css convention
+        }
+        console.log(tag);
+        return tag;
+    }
+
     setTimeout(function(){addTagsToPhotos()}, 10000);
-    console.log(typeof(tagsList[0]));
-    console.log(tagsList[0]);
+
     var umm = setTimeout(function(){console.log(tagsList[4]);
-        console.log(typeof(tagsList[4]));
-        console.log(tagsList[4]);
-        console.log(tagsList);
         for (let i = 0; i < tagsList.length; i++) {
-            tagsList[i] = tagsList[i].toUpperCase();  // change each tag to consistent case; otherwise lowercase a comes after uppercase U
+            tagsList[i] = tagsList[i].toLowerCase();  // change each tag to consistent case; otherwise lowercase a comes after uppercase U
+                                        // changed to lowercase because CSS naming convention, but the button style displays all uppercase.
         }
         tagsList.sort();  // sort alphabetically
         for (let i = 0; i < tagsList.length; i++) {
+            // Remove spaces and special characters from tag values, as those do not translate well to CSS classes
+            var tagValue = makeCSSClass(tagsList[i]);
+
             // add html for each tag in tagsList.
-            tagsDiv.innerHTML = tagsDiv.innerHTML + '<button type="button" class="btn btn-mdb-color btn-sm tagButton" value="' + tagsList[i]
+            tagsDiv.innerHTML = tagsDiv.innerHTML + '<button type="button" class="btn btn-mdb-color btn-sm tagButton" value="' + tagValue
                 + '">' + tagsList[i] + '</button>';
-        }
-        console.log(tagsList);}
+        }}
     , 10000);
-    var tagsArray = Object.keys(tagsList).map(i=> tagsList[i]);
-    console.log(tagsArray);
-    console.log(tagsArray[2]);
+
     console.log(photos.length);
     console.log($.isArray(photos));
     console.log(tagsList[1]);
     console.log($.isArray(tagsList));
-    tagsList.sort();  // Sort tagsList alphabetically
 
     // Put tagsList items in the tagsDiv
     var tagsDiv = document.getElementById('tagsDiv');
