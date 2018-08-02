@@ -39,7 +39,7 @@
             <section class="col-sm-12 col-md-9 col-lg-10">
                 <main>
                     <h3 id="photoSectionHeader">Photos curated by NASA.</h3>
-                    <div id="topOptions">
+                    <div id="topOptions" class="d-flex justify-content-between flex-wrap">
                         <div class="topOption">
                             Sort all photos by
                             <!-- Miscellaneous sort dropdown -->
@@ -50,8 +50,10 @@
                                 <option value="title">Title (A-Z)</option>
                             </select>
                         </div>
+                        <div class="topOption">
+                            Filtering photos by tag: "<span id="filterIndicator">show all photos</span>"
+                        </div>
                     </div>
-
                     <div id="photoContainer">
                         <div id="photoDiv"></div>
                     </div>
@@ -60,7 +62,7 @@
             <section class="col-sm-12 col-md-3 col-lg-2">
                 <h3>Tags to filter by</h3>
                 <div id="tagsDiv">
-                    <div><button type="button" class="btn btn-deep-orange btn-sm tagButton" value="all">Show all photos</button></div>
+                    <div><button type="button" class="btn btn-deep-orange btn-sm tagButton" value="all">show all photos</button></div>
                     <p>Tags: </p>
                 </div>
             </section>

@@ -184,7 +184,13 @@ $(document).ready(function() {
         for (let i = 0; i < tagButtonsList.length; i++) {
             console.log(tagButtonsList[i].value);
             console.log(tagButtonsList.length);
-            tagButtonsList[i].addEventListener('click', function(){filterSelection(tagButtonsList[i].value)});
+            tagButtonsList[i].addEventListener('click', function(){
+                // on click, filter selection by button value
+                filterSelection(tagButtonsList[i].value);
+                // and also update the filter indicator with the name of the filter
+                var filterIndicator = document.getElementById('filterIndicator');
+                filterIndicator.innerHTML = this.innerHTML;
+            });
         }
     }
 

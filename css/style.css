@@ -64,6 +64,7 @@ img {
 /* Index page */
 .topOption {
     padding-bottom: 1rem;
+    display: block;
 }
 
 .photoUnit {
