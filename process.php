@@ -21,10 +21,12 @@
 </head>
 <body>
 <header>
-    <div id="banner">
-        <h1>SPACE</h1>
-        <h2>The Final Frontier</h2>
-    </div>
+    <a href="index.php">
+        <div id="banner">
+            <h1>SPACE</h1>
+            <h2>The Final Frontier</h2>
+        </div>
+    </a>
     <ul class="nav">
         <li class="nav-item">
             <a class="nav-link active" href="index.php">Home</a>
