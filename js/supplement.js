@@ -41,7 +41,7 @@ $(document).ready(function() {
             let photoTags = photos[i].tags;
             console.log(photoTags);
             let imgURL = 'https://farm' + photos[i].farm + '.staticflickr.com/' + photos[i].server + '/' + photos[i].id + '_' + photos[i].secret + '.jpg';
-            $('#photoDiv').append('<span class="photoUnit" id="' + photoId + '"><img src = "' + imgURL + '" alt = "' + title + '" title = "' + title + '"><span>' + title +'</span></span>');
+            $('#photoDiv').append('<span class="photoUnit show" id="' + photoId + '"><img src = "' + imgURL + '" alt = "' + title + '" title = "' + title + '"><span>' + title +'</span></span>');
         }
         addTagsToPhotos();
     }

@@ -41,7 +41,7 @@
                     <h3 id="photoSectionHeader">Photos curated by NASA.</h3>
                     <div id="topOptions">
                         <div class="topOption">
-                            Sort photos by
+                            Sort all photos by
                             <!-- Miscellaneous sort dropdown -->
                             <select id="miscSort">
                                 <option value="takenDateNew" selected="selected">Most Recent First</option>
