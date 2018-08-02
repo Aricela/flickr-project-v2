@@ -41,7 +41,7 @@ $(document).ready(function() {
             let photoTags = photos[i].tags;
             console.log(photoTags);
             let imgURL = 'https://farm' + photos[i].farm + '.staticflickr.com/' + photos[i].server + '/' + photos[i].id + '_' + photos[i].secret + '.jpg';
-            $('#photoDiv').append('<span class="photoUnit show" id="' + photoId + '"><img src = "' + imgURL + '" alt = "' + title + '" title = "' + title + '"><span>' + title +'</span></span>');
+            $('#photoDiv').append('<span class="photoUnit show" id="' + photoId + '"><img class="galleryImg" src = "' + imgURL + '" alt = "' + title + '" title = "' + title + '"><span>' + title +'</span></span>');
         }
         addTagsToPhotos();
     }
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
             // If tags are not already in tagsList, add them
             photoTags.forEach(function(tag) {
-                if ($.inArray(tag, tagsList) == -1) {
+                if ($.inArray(tag, tagsList) === -1) {
                     tagsList.push(tag);
                 }
             });
@@ -91,7 +91,7 @@ $(document).ready(function() {
             //console.log(photoUnits[i].id);
             for (let j = 0; j < photos.length; j++) {
                 if (photos[j].id === photoUnits[i].id) {
-                    console.log(photos[j].id + " " + photoUnits[i].id);
+                    //console.log(photos[j].id + " " + photoUnits[i].id);
                     if (photos[j].tags.length > 0) {
                         photos[j].tags.forEach(function(tag){
                             var className = makeCSSClass(tag);
@@ -149,15 +149,15 @@ $(document).ready(function() {
     // Define filter functions
     function filterSelection(filter) {
         var allPhotosList = document.getElementsByClassName("photoUnit");  // photoUnit class is on all photo units and thus acts as an "all" filter
-        if (filter == "all") {
+        if (filter === "all") {
             filter = "";  // Makes indexOf return 0 for everything
-        };
+        }
         for (let i = 0; i < allPhotosList.length; i++) {
             $(allPhotosList[i]).removeClass("show");
             if ((allPhotosList[i].className.indexOf(filter)) > -1) {
                 // If the string of class names contains the specified filter, add the "show" class
                 checkThenAddClass(allPhotosList[i], "show");
-                console.log(allPhotosList[i].className);
+                //console.log(allPhotosList[i].className);
                 document.querySelector('#photoSectionHeader').scrollIntoView({  // smooth scroll to top
                     // from https://css-tricks.com/snippets/jquery/smooth-scrolling/
                     behavior: 'smooth'
@@ -182,8 +182,8 @@ $(document).ready(function() {
     function addFilterToButton() {
         var tagButtonsList = document.querySelectorAll('#tagsDiv button');
         for (let i = 0; i < tagButtonsList.length; i++) {
-            console.log(tagButtonsList[i].value);
-            console.log(tagButtonsList.length);
+            //console.log(tagButtonsList[i].value);
+            //console.log(tagButtonsList.length);
             tagButtonsList[i].addEventListener('click', function(){
                 // on click, filter selection by button value
                 filterSelection(tagButtonsList[i].value);

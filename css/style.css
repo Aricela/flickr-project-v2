@@ -57,6 +57,10 @@ img {
     height: auto;
 }
 
+.galleryImg {
+    margin-right: 1rem;
+}
+
 p {
     margin-top: 1rem;
 }
@@ -72,6 +76,10 @@ p {
 
 .photoUnit {
     display: none;  /* Default */
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+
 }
 
 .photoUnit.show {
