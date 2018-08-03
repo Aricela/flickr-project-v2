@@ -235,14 +235,4 @@ $(document).ready(function() {
         // Show sorted photos
         displayPhotos();
     });
-
-    // Tag filtering
-    $('.tagButton').click(function(){
-        for (var i=0; i<photos.length; i++) {
-            if ($.inArray(this.value, photos[i].tags) == -1) {
-                //console.log(this.value);
-            }
-         }
-    });
-    //console.log(photos);
 });
